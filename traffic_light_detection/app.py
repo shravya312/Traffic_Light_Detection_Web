@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory,render_template
 import torch
 from torchvision import models, transforms
 from PIL import Image
@@ -56,6 +56,9 @@ def detect_traffic_light_color(cropped_img):
     else:
         return "Yellow"
 
+@app.route('/')
+def serve_frontend():
+    return render_template('index.html')
 @app.route('/detect', methods=['POST'])
 def detect_traffic_lights():
     if 'file' not in request.files:
@@ -89,10 +92,6 @@ def detect_traffic_lights():
         })
 
     return jsonify(detection_results)
-
-@app.route('/')
-def serve_frontend():
-    return send_from_directory('templates', 'index.html')
 
 if __name__ == '__main__':
     app.run(debug=True)
