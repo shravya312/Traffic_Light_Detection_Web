@@ -69,7 +69,7 @@ def detect_traffic_light_color(cropped_img):
         return "Red"
     else:
         return "Yellow"
-
+#app_route
 @app.route('/')
 def serve_frontend():
     return render_template('index.html')
